@@ -1,4 +1,4 @@
-class Grass extends LivingCraeter{
+class Grass extends LivingCreature{
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));

@@ -1,4 +1,4 @@
-class Human extends LivingCraeter {
+class Human extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 10;

@@ -1,4 +1,4 @@
-class Death extends LivingCraeter {
+class Death extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 7;
