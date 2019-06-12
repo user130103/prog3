@@ -1,9 +1,12 @@
-class Predator extends LivingCreature {
-    constructor(x, y, index) {
+var LivingCreature = require("./LivingCreature");
+var random = require("./random.js");
+
+module.exports = class GrassEater extends  LivingCreature {
+    constructor(x, y, index){
         super(x, y, index);
         this.energy = 8;
     }
-
+    
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -13,22 +16,17 @@ class Predator extends LivingCreature {
             [this.x + 1, this.y],
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
-            [this.x + 1, this.y + 1],
-            [this.x - 1, this.y - 2],
-            [this.x, this.y - 2],
-            [this.x + 1, this.y - 2],
-            [this.x - 1, this.y + 2],
-            [this.x, this.y + 2],
-            [this.x + 1, this.y + 2],
+            [this.x + 1, this.y + 1]
         ];
     }
 
-    chooseCell(character) {
+    chooseCell(character){
         this.getNewCoordinates();
         return super.chooseCell(character);
     }
 
     move() {
+
         var newCell = random(this.chooseCell(0));
 
         if (newCell) {
@@ -41,8 +39,7 @@ class Predator extends LivingCreature {
 
             this.y = newY;
             this.x = newX;
-            this.energy -= 2
-                ;
+            this.energy--;
 
         }
 
@@ -50,7 +47,7 @@ class Predator extends LivingCreature {
     eat() {
 
 
-        var newCell = random(this.chooseCell(2));
+        var newCell = random(this.chooseCell(1));
 
         if (newCell) {
             var newX = newCell[0];
@@ -59,9 +56,9 @@ class Predator extends LivingCreature {
             matrix[this.y][this.x] = 0;
             matrix[newY][newX] = this.index;
 
-            for (var i in grassEaterArr) {
-                if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
-                    grassEaterArr.splice(i, 1);
+            for (var i in grassArr) {
+                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                    grassArr.splice(i, 1);
                     break;
                 }
             }
@@ -69,7 +66,7 @@ class Predator extends LivingCreature {
 
             this.y = newY;
             this.x = newX;
-            this.energy += 3;
+            this.energy += 2;
 
         }
     }
@@ -77,10 +74,10 @@ class Predator extends LivingCreature {
 
         var newCell = random(this.chooseCell(0));
 
-        if (this.energy >= 22 && newCell) {
-            var newPredator = new Predator(newCell[0], newCell[1], this.index);
-            predatorArr.push(newPredator);
-            matrix[newCell[1]][newCell[0]] = 3;
+        if (this.energy >= 2 && newCell) {
+            var newGrassEater = new GrassEater(newCell[0], newCell[1], this.index);
+            grassEaterArr.push(newGrassEater);
+            matrix[newCell[1]][newCell[0]] = 2;
             this.energy = 8;
         }
     }
@@ -91,9 +88,10 @@ class Predator extends LivingCreature {
 
         if (this.energy <= 0) {
             matrix[this.y][this.x] = 0;
-            for (var i in predatorArr) {
-                if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
-                    predatorArr.splice(i, 1);
+            for (var i in grassEaterArr) {
+                if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
+
+                    grassEaterArr.splice(i, 1);
                     break;
                 }
             }
@@ -102,4 +100,5 @@ class Predator extends LivingCreature {
         else return false;
     }
 }
+
 

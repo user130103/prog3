@@ -1,4 +1,7 @@
-class Human extends LivingCreature {
+var LivingCreature = require("./LivingCreature");
+var random = require("./random.js");
+
+module.exports = class Human extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 10;
