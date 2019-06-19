@@ -109,8 +109,8 @@ var sendData = {
     grassCounter: grassHashiv,
     grassEaterCounter: grassEaterHashiv,
     weather: weatheris,
-
 }
+
 
 function changeWeather() {
     season++
@@ -181,17 +181,13 @@ function game() {
 }
 
 
-
-
-
-
 setInterval(game, 1000)
 
 
 function mah() {
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix.length; x++) {
-            matrix[y][x] = 0
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix.length; x++) {
+            matrix[y][x] = 0;
         }
     }
 
