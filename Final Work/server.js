@@ -82,6 +82,7 @@ function creatingObjects() {
             else if (matrix[y][x] == 2) {
                 var grassEater = new GrassEater(x, y);
                 grassEaterArr.push(grassEater);
+                grassEaterHashiv++;
             }
             else if (matrix[y][x] == 3) {
                 var predator = new Predator(x, y);
@@ -106,7 +107,7 @@ weatheris = "winter";
 var sendData = {
     matrix: matrix,
     grassCounter: grassHashiv,
-    grassEaterCountElement: grassEaterHashiv,
+    grassEaterCounter: grassEaterHashiv,
     weather: weatheris,
 
 }
@@ -117,12 +118,18 @@ function changeWeather() {
         sendData.weather = "winter";
     }
     else if (season >= 6 && season < 12) {
+        sendData.weather = "spring";
+    }
+    else if (season >= 12 && season < 18) {
         sendData.weather = "summer";
+    }
+    else if (season >= 18 && season < 24) {
+        sendData.weather = "autumn";
     }
     else {
         season = 0;
     }
-    
+
 }
 
 
