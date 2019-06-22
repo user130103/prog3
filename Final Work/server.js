@@ -12,7 +12,9 @@ grassEaterArr = [];
 predatorArr = [];
 humanArr = [];
 deathArr = [];
+
 matrix = [];
+
 grassHashiv = 0;
 grassEaterHashiv = 0;
 predatorHashiv = 0;
@@ -188,21 +190,21 @@ function game() {
 setInterval(game, 1000)
 
 
-function mah() {
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix.length; x++) {
-            matrix[y][x] = 0
-        }
-    }
+// function mah() {
+//     for (let y = 0; y < matrix.length; y++) {
+//         for (let x = 0; x < matrix.length; x++) {
+//             matrix[y][x] = 0
+//         }
+//     }
 
-    grassArr = [];
-    grassEaterArr = [];
-    predatorArr = [];
-    humanArr = [];
-    deathArr = [];
-}
+//     grassArr = [];
+//     grassEaterArr = [];
+//     predatorArr = [];
+//     humanArr = [];
+//     deathArr = [];
+// }
 
-io.on('connection', function (socket) {
-    socket.on("spanel", mah)
-});
+// io.on('connection', function (socket) {
+//     socket.on("spanel", mah)
+// });
 

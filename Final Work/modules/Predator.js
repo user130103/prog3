@@ -34,7 +34,7 @@ module.exports = class Predator extends LivingCreature {
     move() {
         var newCell = random(this.chooseCell(0));
 
-        if (newCell) {
+        if (newCell &&  weatheris == "winter") {
             var newX = newCell[0];
             var newY = newCell[1];
 

@@ -1,4 +1,4 @@
-var LivingCreature = require("./LivingCreature");
+var LiveForm = require("./LivingCreature");
 var random = require("./random");
 
 module.exports = class Human extends LivingCreature {
