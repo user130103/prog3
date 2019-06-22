@@ -111,8 +111,8 @@ var sendData = {
     grassCounter: grassHashiv,
     grassEaterCounter: grassEaterHashiv,
     weather: weatheris,
-
 }
+
 
 function changeWeather() {
     season++
@@ -183,19 +183,24 @@ function game() {
 }
 
 
-
-
-
-
 setInterval(game, 1000)
 
 
+<<<<<<< HEAD
 // function mah() {
 //     for (let y = 0; y < matrix.length; y++) {
 //         for (let x = 0; x < matrix.length; x++) {
 //             matrix[y][x] = 0
 //         }
 //     }
+=======
+function mah() {
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix.length; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+>>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
 
 //     grassArr = [];
 //     grassEaterArr = [];
