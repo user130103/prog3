@@ -50,10 +50,7 @@ function setup() {
                         rect(j * side, i * side, side, side);
                         document.body.style.backgroundColor = "lightyellow"
                     }
-<<<<<<< HEAD
                     
-=======
->>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
                 } else if (matrix[i][j] == 2) {
                     if (season == "winter") {
                         fill("lightyellow")
@@ -75,10 +72,7 @@ function setup() {
                         rect(j * side, i * side, side, side);
                         document.body.style.backgroundColor = "lightyellow"
                     }
-<<<<<<< HEAD
                    
-=======
->>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
                 } else if (matrix[i][j] == 3) {
                     if (season == "winter") {
                         fill("pink")
@@ -100,10 +94,7 @@ function setup() {
                         rect(j * side, i * side, side, side);
                         document.body.style.backgroundColor = "lightyellow"
                     }
-<<<<<<< HEAD
                    
-=======
->>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
                 } else if (matrix[i][j] == 4) {
                     if (season == "winter") {
                         fill("lightblue")
@@ -125,10 +116,7 @@ function setup() {
                         rect(j * side, i * side, side, side);
                         document.body.style.backgroundColor = "lightyellow"
                     }
-<<<<<<< HEAD
                     
-=======
->>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
                 } else if (matrix[i][j] == 5) {
                     if (season == "winter") {
                         fill("#cecaca")
@@ -150,10 +138,7 @@ function setup() {
                         rect(j * side, i * side, side, side);
                         document.body.style.backgroundColor = "lightyellow"
                     }
-<<<<<<< HEAD
                     
-=======
->>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
                 }
             }
         }
