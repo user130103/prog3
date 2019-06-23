@@ -38,7 +38,7 @@ module.exports = class Death extends LiveForm {
         var newCells = newCell1.concat(newCell2);
         var newCell = random(newCells);
 
-        if (newCell && weatheris == "winter") {
+        if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
             if (matrix[newY][newX] == 1) {
@@ -47,7 +47,7 @@ module.exports = class Death extends LiveForm {
                 this.oldY = newY;
                 this.grass = true;
 
-                for (var i in grassArr) {
+                for (var i in grassArr) {   
                     if (newX == grassArr[i].x && newY == grassArr[i].y) {
                         grassArr.splice(i, 1);
                         break;
@@ -59,7 +59,7 @@ module.exports = class Death extends LiveForm {
                 }
                 else {
                     matrix[this.y][this.x] = 0;
-                    matrix[newY][newX] = 4;
+                    matrix[newY][newX] = 5;
 
                     this.y = newY;
                     this.x = newX;
@@ -93,7 +93,9 @@ module.exports = class Death extends LiveForm {
 
             matrix[this.y][this.x] = 0;
             matrix[newY][newX] = this.index;
-            if (matrix[newY][newX] == 4) {
+            
+            if (matrix[newY][newX] == 5) {
+                console.log('hhhh');
                 for (var i in humanArr) {
                     if (newX == humanArr[i].x && newY == humanArr[i].y) {
                         humanArr.splice(i, 1);
@@ -120,10 +122,10 @@ module.exports = class Death extends LiveForm {
 
         var newCell = random(this.chooseCell(0));
 
-        if (this.energy >= 60 && newCell) {
+        if (this.energy >= 20 && newCell) { 
             deathHashiv++;
-            var newHuman = new Human(newCell[0], newCell[1], this.index);
-            humanArr.push(newHuman);
+            var newDeath = new Death(newCell[0], newCell[1], 5);
+            deathArr.push(newDeath);
             matrix[newCell[1]][newCell[0]] = 5;
             this.energy = 12;
         }

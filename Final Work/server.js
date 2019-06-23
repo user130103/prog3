@@ -56,7 +56,7 @@ function matrixGenerator(matrixSize, grass, grassEater, predator, human, death) 
     }
 }
 
-matrixGenerator(20, 20, 10, 20, 20, 30);
+matrixGenerator(35, 50, 20, 20, 20, 30);
 
 
 var express = require('express');
@@ -108,29 +108,20 @@ creatingObjects();
 var season = 0
 weatheris = "winter";
 
-let sendData = {
-    matrix: matrix,
-    grassCounter: grassHashiv,
-    grassEaterCounter: grassEaterHashiv,
-    predatorCounter: predatorHashiv,
-    humanCounter : humanHashiv,
-    deathCounter : deathHashiv,
-    weather: weatheris
-}
 
 function changeWeather() {
-    season++
+    season++;
     if (season > 0 && season < 6) {
-        sendData.weather = "winter";
+        weatheris = "winter";
     }
     else if (season >= 6 && season < 12) {
-        sendData.weather = "spring";
+        weatheris = "spring";
     }
     else if (season >= 12 && season < 18) {
-        sendData.weather = "summer";
+        weatheris = "summer";
     }
     else if (season >= 18 && season < 24) {
-        sendData.weather = "autumn";
+        weatheris = "autumn";
     }
     else {
         season = 0;
@@ -143,8 +134,16 @@ function game() {
 
     changeWeather();
     console.log(weatheris);
-
-    console.log(sendData.weather);
+    let sendData = {
+        matrix: matrix,
+        grassCounter: grassHashiv,
+        grassEaterCounter: grassEaterHashiv,
+        predatorCounter: predatorHashiv,
+        humanCounter : humanHashiv,
+        deathCounter : deathHashiv,
+        weather: weatheris
+    }
+    
     io.sockets.emit("data", sendData);
 
     if (grassArr[0] !== undefined) {
@@ -154,24 +153,35 @@ function game() {
     }
     if (grassEaterArr[0] !== undefined) {
         for (var i in grassEaterArr) {
+            grassEaterArr[i].move();
+            grassEaterArr[i].eat();
             grassEaterArr[i].mul();
         }
     }
     if (predatorArr[0] !== undefined) {
         for (var i in predatorArr) {
+            predatorArr[i].move();
+            predatorArr[i].eat();
             predatorArr[i].mul();
         }
     }
     if (humanArr[0] !== undefined) {
         for (var i in humanArr) {
+            humanArr[i].move();
+            humanArr[i].eat();
             humanArr[i].mul();
         }
     }
     if (deathArr[0] !== undefined) {
         for (var i in deathArr) {
+            deathArr[i].move();
+            deathArr[i].eat();
             deathArr[i].mul();
         }
     }
+
+    
 }
+
 
 setInterval(game, 1000)
