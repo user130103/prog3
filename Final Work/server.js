@@ -6,7 +6,6 @@ var Death = require("./modules/Death.js");
 var random = require('./modules/random');
 
 
-
 grassArr = [];
 grassEaterArr = [];
 predatorArr = [];
@@ -23,7 +22,6 @@ deathHashiv = 0;
 
 
 
-
 function matrixGenerator(matrixSize, grass, grassEater, predator, human, death) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
@@ -32,8 +30,8 @@ function matrixGenerator(matrixSize, grass, grassEater, predator, human, death) 
         }
     }
     for (let i = 0; i < grass; i++) {
-        let customX = Math.floor(random(matrixSize));
-        let customY = Math.floor(random(matrixSize));
+        let customX = Math.floor(random(matrixSize)); 
+        let customY = Math.floor(random(matrixSize)); 
         matrix[customY][customX] = 1;
     }
     for (let i = 0; i < grassEater; i++) {
@@ -57,7 +55,8 @@ function matrixGenerator(matrixSize, grass, grassEater, predator, human, death) 
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 10, 20, 30, 40, 50);
+
+matrixGenerator(20, 20, 10, 20, 20, 30);
 
 
 var express = require('express');
@@ -89,14 +88,17 @@ function creatingObjects() {
             else if (matrix[y][x] == 3) {
                 var predator = new Predator(x, y);
                 predatorArr.push(predator);
+                predatorHashiv++;
             }
             else if (matrix[y][x] == 4) {
                 var human = new Human(x, y);
                 humanArr.push(human);
+                humanHashiv++;
             }
             else if (matrix[y][x] == 5) {
                 var death = new Death(x, y);
                 deathArr.push(death);
+                deathHashiv++;
             }
         }
     }
@@ -106,13 +108,15 @@ creatingObjects();
 var season = 0
 weatheris = "winter";
 
-var sendData = {
+let sendData = {
     matrix: matrix,
     grassCounter: grassHashiv,
     grassEaterCounter: grassEaterHashiv,
-    weather: weatheris,
+    predatorCounter: predatorHashiv,
+    humanCounter : humanHashiv,
+    deathCounter : deathHashiv,
+    weather: weatheris
 }
-
 
 function changeWeather() {
     season++
@@ -150,66 +154,24 @@ function game() {
     }
     if (grassEaterArr[0] !== undefined) {
         for (var i in grassEaterArr) {
-            grassEaterArr[i].move();
-            grassEaterArr[i].eat();
             grassEaterArr[i].mul();
-            grassEaterArr[i].die();
         }
     }
     if (predatorArr[0] !== undefined) {
         for (var i in predatorArr) {
-            predatorArr[i].move();
-            predatorArr[i].eat();
             predatorArr[i].mul();
-            predatorArr[i].die();
         }
     }
     if (humanArr[0] !== undefined) {
         for (var i in humanArr) {
-            humanArr[i].move();
-            humanArr[i].eat();
             humanArr[i].mul();
-            humanArr[i].die();
         }
     }
     if (deathArr[0] !== undefined) {
         for (var i in deathArr) {
-            deathArr[i].move();
-            deathArr[i].eat();
             deathArr[i].mul();
-            deathArr[i].die();
         }
     }
 }
 
-
 setInterval(game, 1000)
-
-
-<<<<<<< HEAD
-// function mah() {
-//     for (let y = 0; y < matrix.length; y++) {
-//         for (let x = 0; x < matrix.length; x++) {
-//             matrix[y][x] = 0
-//         }
-//     }
-=======
-function mah() {
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix.length; x++) {
-            matrix[y][x] = 0;
-        }
-    }
->>>>>>> 91643d3cb1172c91a0c244e2ff9e650b4ce27983
-
-//     grassArr = [];
-//     grassEaterArr = [];
-//     predatorArr = [];
-//     humanArr = [];
-//     deathArr = [];
-// }
-
-// io.on('connection', function (socket) {
-//     socket.on("spanel", mah)
-// });
-

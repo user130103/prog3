@@ -1,7 +1,7 @@
-var LivingCreature = require("./LivingCreature");
+var LiveForm = require("./LiveForm");
 var random = require("./random");
 
-module.exports = class Predator extends LivingCreature {
+module.exports = class Predator extends LiveForm {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 8;
@@ -34,7 +34,7 @@ module.exports = class Predator extends LivingCreature {
     move() {
         var newCell = random(this.chooseCell(0));
 
-        if (newCell &&  weatheris == "winter") {
+        if (newCell && weatheris == "winter") {
             var newX = newCell[0];
             var newY = newCell[1];
 
@@ -80,7 +80,8 @@ module.exports = class Predator extends LivingCreature {
 
         var newCell = random(this.chooseCell(0));
 
-        if (this.energy >= 22 && newCell) {
+        if (this.energy >= 20 && newCell) {
+            predatorHashiv++;
             var newPredator = new Predator(newCell[0], newCell[1], this.index);
             predatorArr.push(newPredator);
             matrix[newCell[1]][newCell[0]] = 3;

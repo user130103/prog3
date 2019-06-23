@@ -1,12 +1,13 @@
-var LivingCreature = require("./LivingCreature");
-var random = require("./random");
+var LiveForm = require("./LiveForm");
+var random = require("./random.js");
 
-module.exports = class GrassEater extends  LivingCreature {
-    constructor(x, y, index){
-        super(x, y, index);
-        this.energy = 8;
+
+
+module.exports = class GrassEater extends LiveForm {
+    constructor(x, y) {
+        super(x, y);
+        this.life = 10;
     }
-    
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -19,87 +20,78 @@ module.exports = class GrassEater extends  LivingCreature {
             [this.x + 1, this.y + 1]
         ];
     }
-
-    chooseCell(character){
+    chooseCell(character) {
         this.getNewCoordinates();
         return super.chooseCell(character);
     }
-
-    move() {
-
-        var newCell = random(this.chooseCell(0));
+    
+    mul() {
+        let emptyCells = this.chooseCell(0);
+        let newCell = random(emptyCells);
 
         if (newCell) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.index;
-
-
-            this.y = newY;
-            this.x = newX;
-            this.energy--;
-
+            grassEaterHashiv++;
+            let x = newCell[0];
+            let y = newCell[1];
+            matrix[y][x] = 2;
+            let grassEater = new GrassEater(x, y);
+            grassEaterArr.push(grassEater);
+            this.life = 5;
         }
-
     }
     eat() {
+        let emptyCells = this.chooseCell(1);
+        let newCell = random(emptyCells);
 
+        if (newCell && weatheris == "spring") {
 
-        var newCell = random(this.chooseCell(1));
+            this.life++;
+            let x = newCell[0];
+            let y = newCell[1];
 
-        if (newCell  &&  weatheris == "spring") {
-            var newX = newCell[0];
-            var newY = newCell[1];
-
+            matrix[y][x] = 2;
             matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.index;
 
-            for (var i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    break;
+            for (let i in grassArr) {
+                if (grassArr[i].x == x && grassArr[i].y == y) {
+                    grassArr.splice(i, 1)
                 }
             }
+            this.x = x;
+            this.y = y;
 
-
-            this.y = newY;
-            this.x = newX;
-            this.energy += 2;
-
+            if (this.life >= 13) {
+                this.mul();
+            }
+        }
+        else {
+            this.move()
         }
     }
-    mul() {
+    move() {
+        this.life--;
+        let emptyCells = this.chooseCell(0);
+        let newCell = random(emptyCells);
 
-        var newCell = random(this.chooseCell(0));
-
-        if (this.energy >= 2 && newCell) {
-            var newGrassEater = new GrassEater(newCell[0], newCell[1], this.index);
-            grassEaterHashiv++;
-            grassEaterArr.push(newGrassEater);
-            matrix[newCell[1]][newCell[0]] = 2;
-            this.energy = 8;
+        if (newCell) {
+            let x = newCell[0];
+            let y = newCell[1];
+            matrix[y][x] = 2;
+            matrix[this.y][this.x] = 0;
+            this.y = y;
+            this.x = x;
+        }
+        if (this.life < 0) {
+            this.die();
         }
     }
-
-
-
     die() {
+        matrix[this.y][this.x] = 0;
 
-        if (this.energy <= 0) {
-            matrix[this.y][this.x] = 0;
-            for (var i in grassEaterArr) {
-                if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
-
-                    grassEaterArr.splice(i, 1);
-                    break;
-                }
+        for (let i in grassEaterArr) {
+            if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {
+                grassEaterArr.splice(i, 1)
             }
-            return true;
         }
-        else return false;
     }
 }
-
-

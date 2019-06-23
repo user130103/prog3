@@ -1,7 +1,7 @@
-var LivingCreature = require("./LivingCreature");
+var LiveForm = require("./LiveForm");
 var random = require("./random");
 
-module.exports = class Human extends LivingCreature {
+module.exports = class Human extends LiveForm {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 10;
@@ -105,7 +105,8 @@ module.exports = class Human extends LivingCreature {
 
         var newCell = random(this.chooseCell(0));
 
-        if (this.energy >= 40 && newCell) {
+        if (this.energy >= 35 && newCell) {
+            humanHashiv++;
             var newHuman = new Human(newCell[0], newCell[1], this.index);
             humanArr.push(newHuman);
             matrix[newCell[1]][newCell[0]] = 4;
@@ -117,7 +118,7 @@ module.exports = class Human extends LivingCreature {
 
     die() {
 
-        if (this.energy <= 0  &&  weatheris == "autumn") {
+        if (this.energy <= 0 && weatheris == "autumn") {
             matrix[this.y][this.x] = 0;
             for (var i in humanArr) {
                 if (this.x == humanArr[i].x && this.y == humanArr[i].y) {

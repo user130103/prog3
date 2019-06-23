@@ -1,7 +1,7 @@
-var LivingCreature = require("./LivingCreature");
+var LiveForm = require("./LiveForm");
 var random = require("./random");
 
-module.exports = class Death extends LivingCreature {
+module.exports = class Death extends LiveForm {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 7;
@@ -30,6 +30,7 @@ module.exports = class Death extends LivingCreature {
         this.getNewCoordinates();
         return super.chooseCell(character);
     }
+    
     move() {
 
         var newCell1 = this.chooseCell(0);
@@ -37,7 +38,7 @@ module.exports = class Death extends LivingCreature {
         var newCells = newCell1.concat(newCell2);
         var newCell = random(newCells);
 
-        if (newCell) {
+        if (newCell && weatheris == "winter") {
             var newX = newCell[0];
             var newY = newCell[1];
             if (matrix[newY][newX] == 1) {
@@ -78,67 +79,68 @@ module.exports = class Death extends LivingCreature {
         }
     }
 
-            eat() {
+    eat() {
 
 
-                var newCell1 = this.chooseCell(3);
-                var newCell2 = this.chooseCell(4);
-                var newCells = newCell1.concat(newCell2);
-                var newCell = random(newCells);
+        var newCell1 = this.chooseCell(3);
+        var newCell2 = this.chooseCell(4);
+        var newCells = newCell1.concat(newCell2);
+        var newCell = random(newCells);
 
-                if (newCell) {
-                    var newX = newCell[0];
-                    var newY = newCell[1];
+        if (newCell) {
+            var newX = newCell[0];
+            var newY = newCell[1];
 
-                    matrix[this.y][this.x] = 0;
-                    matrix[newY][newX] = this.index;
-                    if (matrix[newY][newX] == 4) {
-                        for (var i in humanArr) {
-                            if (newX == humanArr[i].x && newY == humanArr[i].y) {
-                                humanArr.splice(i, 1);
-                                break;
-                            }
-                        }
-                    }
-                    else if (matrix[newY][newX] == 3) {
-                        for (var i in predatorArr) {
-                            if (newX == predatorArr[i].x && newY == predatorArr[i].y) {
-                                predatorArr.splice(i, 1);
-                                break;
-                            }
-                        }
-                    }
-                    this.y = newY;
-                    this.x = newX;
-                    this.energy += 4;
-
-                }
-            }
-
-            mul() {
-
-                var newCell = random(this.chooseCell(0));
-
-                if (this.energy >= 60 && newCell) {
-                    var newHuman = new Human(newCell[0], newCell[1], this.index);
-                    humanArr.push(newHuman);
-                    matrix[newCell[1]][newCell[0]] = 5;
-                    this.energy = 12;
-                }
-            }
-
-
-
-            die() {
-
-                if (this.energy <= 0) {
-                    matrix[this.y][this.x] = 0;
-                    for (var i in deathArr) {
-                        if (this.x == deathArr[i].x && this.y == deathArr[i].y) {
-                            deathArr.splice(i, 1);
-                            break;
-                        }
+            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = this.index;
+            if (matrix[newY][newX] == 4) {
+                for (var i in humanArr) {
+                    if (newX == humanArr[i].x && newY == humanArr[i].y) {
+                        humanArr.splice(i, 1);
+                        break;
                     }
                 }
             }
+            else if (matrix[newY][newX] == 3) {
+                for (var i in predatorArr) {
+                    if (newX == predatorArr[i].x && newY == predatorArr[i].y) {
+                        predatorArr.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            this.y = newY;
+            this.x = newX;
+            this.energy += 4;
+
+        }
+    }
+
+    mul() {
+
+        var newCell = random(this.chooseCell(0));
+
+        if (this.energy >= 60 && newCell) {
+            deathHashiv++;
+            var newHuman = new Human(newCell[0], newCell[1], this.index);
+            humanArr.push(newHuman);
+            matrix[newCell[1]][newCell[0]] = 5;
+            this.energy = 12;
+        }
+    }
+
+
+
+    die() {
+
+        if (this.energy <= 0) {
+            matrix[this.y][this.x] = 0;
+            for (var i in deathArr) {
+                if (this.x == deathArr[i].x && this.y == deathArr[i].y) {
+                    deathArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+    }
 }

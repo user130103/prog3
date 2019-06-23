@@ -6,11 +6,12 @@ function setup() {
 
     var matrix = [];
 
-
+ 
     var grassCountElement = document.getElementById('grassCount');
     var grassEaterCountElement = document.getElementById('grassEaterCount');
-
-
+    var predatorCountElement = document.getElementById('predatorCount');
+    var humanCountElement = document.getElementById('humanCount');
+    var deathCountElement = document.getElementById('deathCount');
 
     socket.on("data", drawCreatures);
 
@@ -18,12 +19,16 @@ function setup() {
         matrix = data.matrix;
         season = data.weather;
         console.log(season)
+
         grassCountElement.innerText = data.grassCounter;
         grassEaterCountElement.innerText = data.grassEaterCounter;
+        predatorCountElement.innerText = data.predatorCounter;
+        humanCountElement.innerText = data.humanCounter;
+        deathCountElement.innerText = data.deathCounter;
         createCanvas(matrix[0].length * side, matrix.length * side)
         background('#acacac');
+       
         
-
         for (var i = 0; i < matrix.length; i++) {
             for (var j = 0; j < matrix[i].length; j++) {
                 rect(j * side, i * side, side, side);
@@ -143,8 +148,4 @@ function setup() {
             }
         }
     }
-}
-
-function spanel() {
-    socket.emit("spanel");
 }
